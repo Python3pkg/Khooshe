@@ -131,7 +131,7 @@ def make_rest_of_layers(data, centroids, shapes, centroids_number, tile_name, po
     while True:
         create_folder('{0}/{1}'.format(tile_name, count))
         new_datas = {}
-        for key in data.keys():
+        for key in list(data.keys()):
             if data[key].shape[0] < 10:
                 with open('{0}/{1}/{2}.csv'.format(tile_name, count, key), 'w') as csv_n:
                     writer = csv.writer(csv_n)
@@ -176,7 +176,7 @@ def run_khooshe(points_obj, points_file, tile_name):
     remove_tiles_folder(tile_name)
     if points_file:
         point_array, point_array2 = read_point_data(points_file)
-        print "Reading points --> DONE."
+        print("Reading points --> DONE.")
     else:
         point_array , point_array2 = read_point_obj(points_obj)
 
@@ -186,12 +186,12 @@ def run_khooshe(points_obj, points_file, tile_name):
 
 
     unique_points = unique_array(point_array)
-    print "Finding unique points --> DONE."
+    print("Finding unique points --> DONE.")
 
     centroids, shapes, new_data = make_first_layer(unique_points, CENTROIDS_NUMBER, tile_name)
 
     make_rest_of_layers(new_data, centroids, shapes, CENTROIDS_NUMBER, tile_name, point_dict)
-    print "Creating layers --> DONE."
+    print("Creating layers --> DONE.")
 
 
 if __name__ == '__main__':
